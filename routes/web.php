@@ -21,10 +21,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/post', 'PostController@index')->name('post.index');
-Route::get('/post/create', 'PostController@create')->name('post.create');
-Route::post('/post/create', 'PostController@store')->name('post.store');
-Route::get('/post/{post}', 'PostController@show')->name('post.show');
-Route::get('/post/{post}/edit', 'PostController@edit')->name('post.edit');
-Route::patch('/post/{post}/edit', 'PostController@update')->name('post.update');
-Route::delete('/post/{post}/delete', 'PostController@destroy')->name('post.destroy');
+Route::middleware('auth')->group(function () {
+    Route::get('/post', 'PostController@index')->name('post.index');
+    Route::get('/post/create', 'PostController@create')->name('post.create');
+    Route::post('/post/create', 'PostController@store')->name('post.store');
+    Route::get('/post/{post}', 'PostController@show')->name('post.show');
+    Route::get('/post/{post}/edit', 'PostController@edit')->name('post.edit');
+    Route::patch('/post/{post}/edit', 'PostController@update')->name('post.update');
+    Route::delete('/post/{post}/delete', 'PostController@destroy')->name('post.destroy');
+});
+// todo Post comment
+Route::post('/post/{post}/store', 'PostCommentController@store')->name('post.comment.store');

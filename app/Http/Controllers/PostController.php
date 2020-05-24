@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::latest()->paginate(env('PER_PAGE'));
         return view('post.index', compact('posts'));
     }
 
@@ -39,6 +39,10 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'title' => 'required',
+            'content' => 'required'
+        ]);
         Post::create([
             'title' => $request->title,
             'slug' => Str::slug($request->title),

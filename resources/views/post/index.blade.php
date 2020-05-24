@@ -7,7 +7,7 @@
       @foreach($posts as $post)
       <div class="card mt-3">
         <div class="card-header">
-          <a href="{{route('post.show', $post)}}">{{$post->title}}</a>
+          <a href="{{route('post.show', $post)}}">{{$post->title}}</a>{{$post->created_at->diffForHumans()}}
           <div class="float-right">
             <a href="{{route('post.edit', $post)}}" class="btn btn-xs btn-warning">Edit</a>
             <form action="{{route('post.destroy', $post)}}" method="POST">
@@ -23,6 +23,7 @@
         </div>
       </div>
       @endforeach
+      {!! $posts->render() !!}
     </div>
   </div>
 </div>
